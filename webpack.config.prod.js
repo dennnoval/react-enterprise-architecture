@@ -1,7 +1,6 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
   mode: 'production',
@@ -43,9 +42,5 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: './public/index.html' }),
     new ESLintPlugin({ extensions: ['js', 'jsx'] })
-  ],
-  optimization: {
-    minimize: true,
-    minimizer: [new TerserPlugin()]
-  }
+  ]
 }
