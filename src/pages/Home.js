@@ -4,10 +4,11 @@ import {
   decrement,
   increment,
   incrementByAmount,
-  incrementAsync,
   incrementIfOdd,
   selectCount
 } from '../redux/counterReducer'
+
+import logo512px from '../assets/logo512.png'
 
 export default function Home () {
   const count = useSelector(selectCount)
@@ -18,6 +19,8 @@ export default function Home () {
 
   return (
     <div>
+      <img src={logo512px} height='128px'/>
+      <br/>
       <div>
         <button
           aria-label='Decrement value'
@@ -43,11 +46,6 @@ export default function Home () {
           onClick={() => dispatch(incrementByAmount(incrementValue))}
         >
           Add Amount
-        </button>
-        <button
-          onClick={() => dispatch(incrementAsync(incrementValue))}
-        >
-          Add Async
         </button>
         <button
           onClick={() => dispatch(incrementIfOdd(incrementValue))}
