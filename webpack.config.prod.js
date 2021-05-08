@@ -4,14 +4,12 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 
 module.exports = {
+  mode: 'production',
+  devtool: 'source-map',
   entry: './src/index.jsx',
   output: {
     path: __dirname+'/build',
     filename: 'bundle.js'
-  },
-  devServer: {
-    port: 3000,
-    watchContentBase: true
   },
   module: {
     rules: [
@@ -49,6 +47,5 @@ module.exports = {
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()]
-  },
-  devtool: 'source-map'
+  }
 }
