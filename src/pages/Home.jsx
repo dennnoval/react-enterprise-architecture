@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import {
-  decrement,
-  increment,
-  incrementByAmount,
-  incrementIfOdd,
-  selectCount
-} from '../redux/counterReducer'
+  decrement, increment, incrementByAmount, incrementIfOdd
+} from '../reducers/counterReducer'
 
 import logo512px from '../assets/logo512.png'
 
 export default function Home () {
-  const count = useSelector(selectCount)
+  const count = useSelector((state) => state.counter.value)
   const dispatch = useDispatch()
   const [incrementAmount, setIncrementAmount] = useState('2')
 
