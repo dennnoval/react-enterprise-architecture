@@ -1,4 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
+import { fetchCount } from '../services'
+
+export const incrementAsync = createAsyncThunk(
+  'counter/fetchCount',
+  async (amount) => {
+    const response = await fetchCount(amount)
+    return response.data
+  }
+)
 
 const counterSlice = createSlice({
   name: 'counter',
@@ -21,12 +30,24 @@ const counterSlice = createSlice({
       if (currentVal % 2 === 1) {
         state.value += action.payload
       }
+    },
+    extraReducers: {
+      [incrementAsync.pending]: (state) => {
+        state.status = 'pending'
+      },
+      [incrementAsync.fulfilled]: (state, action) => {
+        state.status = 'idle'
+        state.value += action.payload
+      }
     }
   }
 })
 
-export const countSelect = state => state.counter.value
-
-export const { increment, decrement, incrementByAmount, incrementIfOdd } = counterSlice.actions
+export const {
+  increment,
+  decrement,
+  incrementByAmount,
+  incrementIfOdd
+} = counterSlice.actions
 
 export default counterSlice.reducer
