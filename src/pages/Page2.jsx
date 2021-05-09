@@ -5,10 +5,22 @@ import {
   increment,
   incrementAsync
 } from '../reducers/counterReducer'
+// import axios from 'axios'
 
 export default function Page2 () {
-  const { value } = useSelector(state => state.counter)
+  const { value, status } = useSelector(state => state.counter)
   const dispatch = useDispatch()
+
+  /* React.useEffect(() => {
+    axios({
+      method: 'GET',
+      url: 'http://localhost:3000/public/myData.json',
+      cancelToken: axios.CancelToken.source().token
+    }).then(res => {
+        dispatch(incrementByAmount(res.data.amount))
+      })
+      .catch(err => console.log(err))
+  }) */
 
   return (
     <div id='Page1'>
@@ -22,7 +34,10 @@ export default function Page2 () {
           onClick={() => dispatch(increment())}
         >+</button>
         <button className='btn btn-outline-secondary'
-          onClick={() => dispatch(incrementAsync(1))}
+          onClick={() => {
+            dispatch(incrementAsync(3))
+            console.log(status)
+          }}
         >Async +</button>
       </div>
     </div>
