@@ -1,12 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { fetchCount } from '../services'
+import { counterAPI } from '../services'
 
 export const incrementAsync = createAsyncThunk(
   'counter/fetchCount',
-  async (amount) => {
-    const response = await fetchCount(amount)
-    return response.data
-  }
+  async () => await counterAPI.fetchCount().data
 )
 
 const counterSlice = createSlice({
@@ -16,10 +13,10 @@ const counterSlice = createSlice({
     status: 'idle'
   },
   reducers: {
-    increment: (state) => {
+    increment: state => {
       state.value += 1
     },
-    decrement: (state) => {
+    decrement: state => {
       state.value -= 1
     },
     incrementByAmount: (state, action) => {
@@ -32,12 +29,15 @@ const counterSlice = createSlice({
       }
     },
     extraReducers: {
-      [incrementAsync.pending]: (state) => {
+      [incrementAsync.pending]: state => {
         state.status = 'pending'
       },
       [incrementAsync.fulfilled]: (state, action) => {
-        state.status = 'idle'
+        state.status = 'complete'
         state.value += action.payload
+      },
+      [incrementAsync.rejected]: state => {
+        state.status = 'failed'
       }
     }
   }

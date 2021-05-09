@@ -1,5 +1,5 @@
-import { fetchCount } from './counterAPI'
+import counterAPI from './counterAPI'
 
 export {
-  fetchCount
+  counterAPI
 }

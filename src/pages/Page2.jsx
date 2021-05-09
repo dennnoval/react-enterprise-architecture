@@ -3,24 +3,20 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   decrement,
   increment,
+  incrementIfOdd,
   incrementAsync
 } from '../reducers/counterReducer'
-// import axios from 'axios'
 
 export default function Page2 () {
   const { value, status } = useSelector(state => state.counter)
   const dispatch = useDispatch()
 
-  /* React.useEffect(() => {
-    axios({
-      method: 'GET',
-      url: 'http://localhost:3000/public/myData.json',
-      cancelToken: axios.CancelToken.source().token
-    }).then(res => {
-        dispatch(incrementByAmount(res.data.amount))
-      })
-      .catch(err => console.log(err))
-  }) */
+  React.useEffect(() => {
+    console.log(status)
+    if (status === 'idle') {
+      dispatch(incrementAsync())
+    }
+  }, [status, dispatch])
 
   return (
     <div id='Page1'>
@@ -34,10 +30,10 @@ export default function Page2 () {
           onClick={() => dispatch(increment())}
         >+</button>
         <button className='btn btn-outline-secondary'
-          onClick={() => {
-            dispatch(incrementAsync(3))
-            console.log(status)
-          }}
+          onClick={() => dispatch(incrementIfOdd(1))}
+        >Odd +</button>
+        <button className='btn btn-outline-secondary'
+          onClick={() => dispatch(incrementAsync())}
         >Async +</button>
       </div>
     </div>

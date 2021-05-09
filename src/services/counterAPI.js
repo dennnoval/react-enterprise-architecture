@@ -1,5 +1,9 @@
-export function fetchCount (amount = 1) {
-  return Promise((resolve) =>
-    setTimeout(() => resolve({ data: amount }), 500)
-  )
+import axios from 'axios'
+
+export default {
+  fetchCount: () => axios({
+    method: 'GET',
+    url: 'http://localhost:3000/public/myData.json',
+    cancelToken: axios.CancelToken.source().token
+  })
 }
