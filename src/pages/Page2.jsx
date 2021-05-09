@@ -3,20 +3,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import {
   decrement,
   increment,
-  incrementIfOdd,
-  incrementAsync
+  incrementIfOdd
 } from '../reducers/counterReducer'
 
 export default function Page2 () {
-  const { value, status } = useSelector(state => state.counter)
+  const { value } = useSelector(state => state.counter)
   const dispatch = useDispatch()
-
-  React.useEffect(() => {
-    console.log(status)
-    if (status === 'idle') {
-      dispatch(incrementAsync())
-    }
-  }, [status, dispatch])
 
   return (
     <div id='Page1'>
@@ -32,9 +24,6 @@ export default function Page2 () {
         <button className='btn btn-outline-secondary'
           onClick={() => dispatch(incrementIfOdd(1))}
         >Odd +</button>
-        <button className='btn btn-outline-secondary'
-          onClick={() => dispatch(incrementAsync())}
-        >Async +</button>
       </div>
     </div>
   )

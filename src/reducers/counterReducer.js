@@ -3,7 +3,7 @@ import { counterAPI } from '../services'
 
 export const incrementAsync = createAsyncThunk(
   'counter/fetchCount',
-  async () => await counterAPI.fetchCount().data
+  async () => counterAPI.fetchCount().json().data
 )
 
 const counterSlice = createSlice({
@@ -33,11 +33,11 @@ const counterSlice = createSlice({
         state.status = 'pending'
       },
       [incrementAsync.fulfilled]: (state, action) => {
-        state.status = 'complete'
+        state.status = 'fulfilled'
         state.value += action.payload
       },
       [incrementAsync.rejected]: state => {
-        state.status = 'failed'
+        state.status = 'rejected'
       }
     }
   }
