@@ -8,7 +8,8 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: __dirname+'/build',
-    filename: 'bundle.js'
+    filename: '[name].[contenthash].js',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -18,10 +19,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-react'
-            ]
+            plugins: ['@babel/plugin-transform-runtime']
           }
         }
       },
@@ -42,5 +40,9 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: './public/index.html' }),
     new ESLintPlugin({ extensions: ['js', 'jsx'] })
-  ]
+  ],
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: { chunks: 'all' }
+  }
 }

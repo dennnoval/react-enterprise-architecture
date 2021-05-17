@@ -3,7 +3,7 @@ import { counterAPI } from '../services'
 
 export const incrementAsync = createAsyncThunk(
   'counter/fetchCount',
-  async () => counterAPI.fetchCount().json().data
+  async () => await counterAPI.fetchCount().data
 )
 
 const counterSlice = createSlice({

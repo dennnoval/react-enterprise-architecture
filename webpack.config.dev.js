@@ -8,10 +8,12 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: __dirname+'/build',
-    filename: 'bundle.js'
+    filename: '[name].js',
+    publicPath: '/'
   },
   devServer: {
     port: 3000,
+    compress: true,
     watchContentBase: true
   },
   module: {
@@ -22,11 +24,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            plugins: ['@babel/plugin-transform-runtime'],
-            presets: [
-              '@babel/preset-env',
-              '@babel/preset-react'
-            ]
+            plugins: ['@babel/plugin-transform-runtime']
           }
         }
       },
@@ -47,5 +45,9 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: './public/index.html' }),
     new ESLintPlugin({ extensions: ['js', 'jsx'] })
-  ]
+  ],
+  optimization: {
+    runtimeChunk: 'single',
+    splitChunks: { chunks: 'all' }
+  }
 }

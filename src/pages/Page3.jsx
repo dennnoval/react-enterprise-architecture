@@ -8,7 +8,7 @@ export default function Page2 () {
 
   React.useEffect(() => {
     dispatch(incrementAsync())
-  }, [status, dispatch])
+  }, [dispatch, incrementAsync])
 
   return (
     <div id='Page3'>
