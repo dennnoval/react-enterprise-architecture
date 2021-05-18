@@ -40,7 +40,6 @@ module.exports = {
     new ESLintPlugin({ extensions: ['js', 'jsx'] })
   ],
   optimization: {
-    minimize: true,
     runtimeChunk: 'single',
     splitChunks: {
       cacheGroups: {
