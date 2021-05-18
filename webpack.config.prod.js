@@ -2,6 +2,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 
 module.exports = {
   mode: 'production',
@@ -46,6 +47,10 @@ module.exports = {
   ],
   optimization: {
     minimize: true,
+    minimizer: [
+      `...`,
+      new CssMinimizerPlugin()
+    ],
     runtimeChunk: 'single',
     splitChunks: {
       cacheGroups: {
