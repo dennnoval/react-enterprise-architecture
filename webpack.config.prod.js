@@ -1,6 +1,7 @@
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   mode: 'production',
@@ -19,14 +20,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['@babel/plugin-transform-runtime']
+            presets: [ '@babel/preset-env', '@babel/preset-react' ],
+            plugins: [ '@babel/plugin-transform-runtime' ]
           }
         }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [ MiniCSSExtractPlugin.loader, 'css-loader' ]
       },
       {
         test: /\.(jpg|jpeg|png|svg|gif)$/,
@@ -40,7 +41,8 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: './public/index.html' }),
-    new ESLintPlugin({ extensions: ['js', 'jsx'] })
+    new ESLintPlugin({ extensions: ['js', 'jsx'] }),
+    new MiniCSSExtractPlugin({ filename: '[name].css'})
   ],
   optimization: {
     minimize: true,

@@ -17,14 +17,14 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env', '@babel/preset-react'],
-            plugins: ['@babel/plugin-transform-runtime']
+            presets: [ '@babel/preset-env', '@babel/preset-react' ],
+            plugins: [ '@babel/plugin-transform-runtime' ]
           }
         }
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: [ 'style-loader', 'css-loader' ]
       },
       {
         test: /\.(jpg|jpeg|png|svg|gif)$/,
