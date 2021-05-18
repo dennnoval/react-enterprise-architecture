@@ -1,18 +1,11 @@
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ESLintPlugin = require('eslint-webpack-plugin')
 
 module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
-  entry: './src/index.jsx',
-  output: {
-    path: __dirname+'/build',
-    filename: '[name].js',
-    publicPath: '/'
-  },
+  entry: './src/index',
   devServer: {
-    port: 3000,
     compress: true,
     watchContentBase: true
   },
@@ -24,6 +17,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: ['@babel/plugin-transform-runtime']
           }
         }
@@ -42,12 +36,20 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({ template: './public/index.html' }),
     new ESLintPlugin({ extensions: ['js', 'jsx'] })
   ],
   optimization: {
+    minimize: true,
     runtimeChunk: 'single',
-    splitChunks: { chunks: 'all' }
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
   }
 }

@@ -1,5 +1,4 @@
-import { lazy } from 'react'
-const logo512px = lazy(() => import('./logo512.png'))
+import logo512px from './logo512.png'
 
 export {
   logo512px

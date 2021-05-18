@@ -5,10 +5,10 @@ const ESLintPlugin = require('eslint-webpack-plugin')
 module.exports = {
   mode: 'production',
   devtool: 'source-map',
-  entry: './src/index.jsx',
+  entry: './src/index',
   output: {
     path: __dirname+'/build',
-    filename: '[name].[contenthash].js',
+    filename: '[name].js',
     publicPath: '/'
   },
   module: {
@@ -19,6 +19,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
+            presets: ['@babel/preset-env', '@babel/preset-react'],
             plugins: ['@babel/plugin-transform-runtime']
           }
         }
@@ -42,7 +43,16 @@ module.exports = {
     new ESLintPlugin({ extensions: ['js', 'jsx'] })
   ],
   optimization: {
+    minimize: true,
     runtimeChunk: 'single',
-    splitChunks: { chunks: 'all' }
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
   }
 }
